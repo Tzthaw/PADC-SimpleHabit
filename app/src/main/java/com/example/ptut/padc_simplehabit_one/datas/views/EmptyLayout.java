@@ -3,6 +3,7 @@ package com.example.ptut.padc_simplehabit_one.datas.views;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,9 +12,8 @@ import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class EmptyLayout extends LinearLayout {
+public class EmptyLayout extends LinearLayout implements View.OnClickListener{
 
     @BindView(R.id.empty_text)
     TextView emptyText;
@@ -23,6 +23,8 @@ public class EmptyLayout extends LinearLayout {
     public EmptyLayout(Context context) {
         super(context);
         this.context=context;
+
+
     }
 
     public EmptyLayout(Context context, @Nullable AttributeSet attrs) {
@@ -40,15 +42,16 @@ public class EmptyLayout extends LinearLayout {
         super.onFinishInflate();
         ButterKnife.bind(this, this);
         emptyText.setText("No Data");
+        setOnClickListener(this);
     }
 
     public void bindData(EmptyClickListener onEmptyClickListener) {
         this.onEmptyClickListener=onEmptyClickListener;
-
     }
 
-    @OnClick
-    public void onNewsClick(){
-    }
 
+    @Override
+    public void onClick(View v) {
+        onEmptyClickListener.onEmptyClick();
+    }
 }

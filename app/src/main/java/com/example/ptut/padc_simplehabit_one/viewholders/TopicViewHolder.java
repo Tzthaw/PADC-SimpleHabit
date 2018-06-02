@@ -4,10 +4,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ptut.padc_simplehabit_one.datas.entities.TopicVO;
+import com.bumptech.glide.Glide;
 import com.example.ptut.padc_simplehabit_one.R;
+import com.example.ptut.padc_simplehabit_one.datas.entities.TopicVO;
 import com.example.ptut.padc_simplehabit_one.viewholders.base.BaseViewHolder;
-import com.example.ptut.padc_simplehabit_one.shared.UtilsGeneral;
 
 import butterknife.BindView;
 
@@ -32,8 +32,14 @@ public class TopicViewHolder extends BaseViewHolder<TopicVO> {
     @Override
     public void bind(TopicVO data) {
         topicItem = data;
-//        UtilsGeneral.LoadImageWithGlide(topicItemBgImg, itemView.getContext(), data.getBackgroundImg());
-        UtilsGeneral.LoadImageWithGlide(topicItemIcon, itemView.getContext(), data.getImage());
+        Glide.with(itemView.getContext())
+                .load(data.getBackgroundImg())
+                .into(topicItemBgImg);
+
+        Glide.with(itemView.getContext())
+                .load(data.getImage())
+                .into(topicItemIcon);
+
         topicItemTitle.setText(data.getTopicName());
         topicItemDiscuss.setText(data.getTopicDesc());
     }

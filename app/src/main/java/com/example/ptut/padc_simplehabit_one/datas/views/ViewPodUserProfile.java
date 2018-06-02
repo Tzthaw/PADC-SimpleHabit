@@ -12,7 +12,7 @@ import com.example.ptut.padc_simplehabit_one.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class view_pod_user_profile extends LinearLayout{
+public class ViewPodUserProfile extends LinearLayout{
 
     @BindView(R.id.text_total_session)
     TextView totalSessionTxt;
@@ -21,15 +21,15 @@ public class view_pod_user_profile extends LinearLayout{
     @BindView(R.id.text_day_streak)
     TextView dayStreakTxt;
 
-    public view_pod_user_profile(Context context) {
+    public ViewPodUserProfile(Context context) {
         super(context);
     }
 
-    public view_pod_user_profile(Context context, @Nullable AttributeSet attrs) {
+    public ViewPodUserProfile(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public view_pod_user_profile(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ViewPodUserProfile(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

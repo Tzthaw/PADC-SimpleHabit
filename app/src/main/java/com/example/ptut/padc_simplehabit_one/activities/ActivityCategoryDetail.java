@@ -15,22 +15,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.activities.base.BaseActivity;
 import com.example.ptut.padc_simplehabit_one.adapters.CategorySessionAdapter;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
-import com.example.ptut.padc_simplehabit_one.events.SeriesEvent;
 import com.example.ptut.padc_simplehabit_one.models.CurrentProgramModel;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 import com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView;
-import com.example.ptut.padc_simplehabit_one.shared.UtilsGeneral;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
 
 public class ActivityCategoryDetail extends BaseActivity {
     @BindView(R.id.app_bar)
@@ -54,7 +51,7 @@ public class ActivityCategoryDetail extends BaseActivity {
     private boolean check = true;
 
 
-
+    //static factory method
     public static Intent getInstance(Context context, String id, String fromId) {
         Intent intent = new Intent(context, ActivityCategoryDetail.class);
         intent.putExtra(Constant.FROM_ID, id);
@@ -79,20 +76,21 @@ public class ActivityCategoryDetail extends BaseActivity {
 
         checkID(fromVo, fromId);
 
+
+
         setActionBarTitle(check ? programVO.getTitle() : currentProgramVO.getTitle());
+
         toolbarTitle.setText(check ? programVO.getTitle() : currentProgramVO.getTitle());
 
-
-        UtilsGeneral.LoadImageWithGlide(toolbarImg, this, check ? programVO.getImage() : currentProgramVO.getBackground() );
+        Glide.with(this)
+                .load(check ? programVO.getImage() : currentProgramVO.getBackground())
+                .into(toolbarImg);
 
         cateDetailDesc.setText(check ? programVO.getDescription() : currentProgramVO.getDescription());
 
         cateDetails.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
         CategorySessionAdapter categoryAdapter = new CategorySessionAdapter(getApplicationContext());
-
         categoryAdapter.setNewData(check ? programVO.getSessions() : currentProgramVO.getSessions());
-
         cateDetails.setAdapter(categoryAdapter);
     }
 
@@ -106,15 +104,6 @@ public class ActivityCategoryDetail extends BaseActivity {
         Toast.makeText(getApplicationContext(), "You click floating action button.", Toast.LENGTH_LONG).show();
     }
 
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onProgramLoadedEvent(SeriesEvent.ProgramEvent event) {
-        programVO = event.getProgramVO();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onCurrentProgramLoadedEvent(SeriesEvent.CurrentDataEvent event) {
-        currentProgramVO = event.getCurrentProgramVO();
-    }
 
 
 
@@ -122,9 +111,10 @@ public class ActivityCategoryDetail extends BaseActivity {
         check = from.equalsIgnoreCase(Constant.PROGRAM_ID);
         CurrentProgramModel currentProgramModel = CurrentProgramModel.getInstance(this);
         if (check) {
-            currentProgramModel.loadProgramData(id);
+            programVO=currentProgramModel.loadProgramData(id);
+
         } else {
-            currentProgramModel.loadCurrentData();
+            currentProgramVO=currentProgramModel.loadCurrentData();
         }
     }
 

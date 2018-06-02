@@ -5,10 +5,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
-import com.example.ptut.padc_simplehabit_one.shared.UtilsGeneral;
 import com.example.ptut.padc_simplehabit_one.viewholders.base.BaseViewHolder;
 
 import butterknife.BindView;
@@ -46,7 +46,9 @@ public class CurrentViewHolder extends BaseViewHolder<CurrentProgramVO> {
     public void bind(CurrentProgramVO data) {
         currentProgramVO=data;
         startTitle.setText(data.getTitle());
-        UtilsGeneral.LoadImageWithGlide(startImg,itemView.getContext(),data.getBackground());
+        Glide.with(itemView.getContext())
+                .load(data.getBackground())
+                .into(startImg);
         startDesc.setText(data.getDescription());
         startTime.setText(""+data.getSessions().get(0).getLengthTime());
     }

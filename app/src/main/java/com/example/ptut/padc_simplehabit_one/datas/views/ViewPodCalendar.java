@@ -12,20 +12,20 @@ import com.example.ptut.padc_simplehabit_one.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class view_pod_calendar extends RelativeLayout {
+public class ViewPodCalendar extends RelativeLayout {
 
     @BindView(R.id.history_calendar)
     CalendarView historyCalendarView;
 
-    public view_pod_calendar(Context context) {
+    public ViewPodCalendar(Context context) {
         super(context);
     }
 
-    public view_pod_calendar(Context context, AttributeSet attrs) {
+    public ViewPodCalendar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public view_pod_calendar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ViewPodCalendar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

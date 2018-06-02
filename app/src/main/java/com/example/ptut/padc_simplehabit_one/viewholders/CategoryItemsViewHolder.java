@@ -4,11 +4,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
+import com.bumptech.glide.Glide;
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
+import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
 import com.example.ptut.padc_simplehabit_one.viewholders.base.BaseViewHolder;
-import com.example.ptut.padc_simplehabit_one.shared.UtilsGeneral;
 
 import butterknife.BindView;
 
@@ -32,7 +32,9 @@ public class CategoryItemsViewHolder extends BaseViewHolder<ProgramVO>{
     @Override
     public void bind(ProgramVO data) {
         programVO =data;
-        UtilsGeneral.LoadImageWithGlide(mediImage,itemView.getContext(),data.getImage());
+        Glide.with(itemView.getContext())
+                .load(data.getImage())
+                .into(mediImage);
         mediCardTitle.setText(data.getTitle());
         mediTime.setText(""+data.getAvgLength());
     }
@@ -41,4 +43,5 @@ public class CategoryItemsViewHolder extends BaseViewHolder<ProgramVO>{
     public void onClick(View v) {
         clickListener.onCategoryItemClick(programVO,mediImage);
     }
+
 }

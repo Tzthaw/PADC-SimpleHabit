@@ -10,23 +10,18 @@ import android.view.ViewGroup;
 
 import com.example.ptut.padc_simplehabit_one.R;
 
+public class FragmentTeachers extends Fragment{
 
-public class Fragment_OnGo extends Fragment {
-
-
-    public static Fragment_OnGo newInstance() {
+    public static FragmentTeachers newInstance() {
 
         Bundle args = new Bundle();
 
-        Fragment_OnGo fragment = new Fragment_OnGo();
+        FragmentTeachers fragment = new FragmentTeachers();
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_ongo,container,false);
+        View v=inflater.inflate(R.layout.fragment_teacher,container,false);
         return v;
     }
 }

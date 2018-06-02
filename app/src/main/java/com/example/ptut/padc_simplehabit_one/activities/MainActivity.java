@@ -19,12 +19,13 @@ import android.widget.ImageView;
 
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.activities.base.BaseActivity;
+import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
-import com.example.ptut.padc_simplehabit_one.fragments.Fragment_OnGo;
-import com.example.ptut.padc_simplehabit_one.fragments.Fragment_Series;
-import com.example.ptut.padc_simplehabit_one.fragments.Fragment_Teachers;
+import com.example.ptut.padc_simplehabit_one.fragments.FragmentOnGo;
+import com.example.ptut.padc_simplehabit_one.fragments.FragmentSeries;
+import com.example.ptut.padc_simplehabit_one.fragments.FragmentTeachers;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity implements ItemClickListener {
+public class MainActivity extends BaseActivity implements ItemClickListener,EmptyClickListener {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
@@ -82,11 +83,16 @@ public class MainActivity extends BaseActivity implements ItemClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter.addFragment(Fragment_OnGo.newInstance(), "On The Go");
-        adapter.addFragment(Fragment_Series.newInstance(), "SERIES");
-        adapter.addFragment(Fragment_Teachers.newInstance(), "TEACHERS");
+        adapter.addFragment(FragmentOnGo.newInstance(), "On The Go");
+        adapter.addFragment(FragmentSeries.newInstance(), "SERIES");
+        adapter.addFragment(FragmentTeachers.newInstance(), "TEACHERS");
         viewPager.setAdapter(adapter);
     }
+
+    @Override
+    public void onEmptyClick() {
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

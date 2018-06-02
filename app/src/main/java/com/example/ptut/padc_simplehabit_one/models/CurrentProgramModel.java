@@ -24,12 +24,14 @@ public class CurrentProgramModel extends BaseModel {
     private int page=Constant.page;
 
     private static CurrentProgramModel currentProgramModel;
-    Context context;
+     Context context;
     private SeriesDataAgentImpl seriesDataAgentImpl;
 
     private List<HomeScreenVO> homeScreenVOS=new ArrayList<>();
     private List<CategoriesProgramVO> categoryList;
     private CurrentProgramVO currentProgramVO;
+
+    private String errorMsg;
 
     private CurrentProgramModel(Context context) {
       this.context=context;
@@ -48,21 +50,19 @@ public class CurrentProgramModel extends BaseModel {
 
     }
 
-    public void loadCurrentData(){
-        EventBus.getDefault().post(new SeriesEvent.CurrentDataEvent(currentProgramVO));
+    public CurrentProgramVO loadCurrentData(){
+        return currentProgramVO;
     }
 
-    public void loadProgramData(String programId){
-        ProgramVO programVO = new ProgramVO(programId);
+    public ProgramVO loadProgramData(String programId){
        for(CategoriesProgramVO vo:categoryList){
         for(ProgramVO voprogram:vo.getPrograms()){
             if(voprogram.getProgramId().equalsIgnoreCase(programId)){
-                programVO =voprogram;
+                return voprogram;
             }
         }
        }
-       EventBus.getDefault().post(new SeriesEvent.ProgramEvent(programVO));
-
+        return null;
     }
 
     @Subscribe(threadMode = ThreadMode.BackgroundThread)
@@ -73,7 +73,7 @@ public class CurrentProgramModel extends BaseModel {
         }
         currentProgramVO=event.getCurrentProgramVO();
         if(currentProgramVO!=null){
-            homeScreenVOS.add(event.getCurrentProgramVO());
+            homeScreenVOS.add(currentProgramVO);
             seriesDataAgentImpl.getCategoriesPrograms(access_token,page);
         }else
             EventBus.getDefault().post(new SeriesEvent.ErrorEvent("currentVO null object"));
@@ -105,8 +105,14 @@ public class CurrentProgramModel extends BaseModel {
 
     }
 
-
-
+    public CurrentProgramVO getCurrentProgramData(){
+        for(HomeScreenVO homeScreenVO:homeScreenVOS){
+            if(homeScreenVO instanceof  CurrentProgramVO){
+              return (CurrentProgramVO) homeScreenVO;
+            }
+        }
+        return null;
+    }
 
 
 }

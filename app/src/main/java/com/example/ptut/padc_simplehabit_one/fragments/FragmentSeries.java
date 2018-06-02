@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.adapters.SeriesNewAdapter;
+import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
 import com.example.ptut.padc_simplehabit_one.datas.views.EmptyLayout;
 import com.example.ptut.padc_simplehabit_one.events.SeriesEvent;
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
-public class Fragment_Series extends BaseFragment{
+public class FragmentSeries extends BaseFragment {
 
     @BindView(R.id.series_recycler)
     SmartRecyclerView seriesRecycler;
@@ -36,10 +37,11 @@ public class Fragment_Series extends BaseFragment{
     SeriesNewAdapter seriesAdapter;
 
     ItemClickListener clickListener;
+    EmptyClickListener emptyClickListener;
 
-    public static Fragment_Series newInstance() {
+    public static FragmentSeries newInstance() {
         Bundle args = new Bundle();
-        Fragment_Series fragment = new Fragment_Series();
+        FragmentSeries fragment = new FragmentSeries();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,6 +55,9 @@ public class Fragment_Series extends BaseFragment{
         }else{
             Toast.makeText(getContext(),"No Internet Connection",Toast.LENGTH_SHORT).show();
         }
+
+
+        emptyLayout.bindData(emptyClickListener);
 
         seriesRecycler.setEmptyView(emptyLayout);
 
@@ -84,5 +89,6 @@ public class Fragment_Series extends BaseFragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         clickListener=(ItemClickListener) context;
+        emptyClickListener=(EmptyClickListener)context;
     }
 }

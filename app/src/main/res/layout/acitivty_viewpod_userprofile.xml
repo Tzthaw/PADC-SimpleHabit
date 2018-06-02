@@ -16,7 +16,7 @@
         android:textColor="@color/blue_grey_500"
         android:textSize="@dimen/text_big" />
 
-    <com.example.ptut.padc_simplehabit_one.datas.views.view_pod_user_profile
+    <com.example.ptut.padc_simplehabit_one.datas.views.ViewPodUserProfile
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -102,7 +102,7 @@
                 android:textSize="@dimen/text_big" />
         </RelativeLayout>
 
-    </com.example.ptut.padc_simplehabit_one.datas.views.view_pod_user_profile>
+    </com.example.ptut.padc_simplehabit_one.datas.views.ViewPodUserProfile>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/text_big"
         android:layout_margin="@dimen/biggest_margin"/>
-    <com.example.ptut.padc_simplehabit_one.datas.views.view_pod_calendar
+    <com.example.ptut.padc_simplehabit_one.datas.views.ViewPodCalendar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/biggest_margin">
@@ -123,5 +123,5 @@
             android:firstDayOfWeek="2"
             android:maxDate="01/01/2019"
             android:minDate="01/01/2016"/>
-    </com.example.ptut.padc_simplehabit_one.datas.views.view_pod_calendar>
+    </com.example.ptut.padc_simplehabit_one.datas.views.ViewPodCalendar>
 </LinearLayout>
