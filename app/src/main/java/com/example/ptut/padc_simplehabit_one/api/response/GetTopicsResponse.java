@@ -14,10 +14,9 @@ public class GetTopicsResponse extends BaseResponse {
     @SerializedName("topics")
     private List<TopicVO> topicVOS;
 
-    public GetTopicsResponse() {
-
+    public void setTopicVOS(List<TopicVO> topicVOS) {
+        this.topicVOS = topicVOS;
     }
-
 
     public String getPage() {
         return page;

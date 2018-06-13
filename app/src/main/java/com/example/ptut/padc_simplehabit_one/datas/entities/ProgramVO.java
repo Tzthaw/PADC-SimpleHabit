@@ -1,38 +1,67 @@
 package com.example.ptut.padc_simplehabit_one.datas.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "programs",indices = {@Index("program-session-id")},
+        foreignKeys = @ForeignKey(entity = SessionVO.class,
+                parentColumns = "session-id",
+                childColumns = "program-session-id", onDelete = CASCADE))
 public class ProgramVO {
 
+    @PrimaryKey
+    @ColumnInfo(name = "program-id")
     @SerializedName("program-id")
-    String programId;
-    @SerializedName("title")
+    @NonNull
+    String programVoId;
+    @ColumnInfo(name = "title")
     String title;
-    @SerializedName("image")
+    @ColumnInfo(name = "image")
     String image;
-    @SerializedName("average-lengths")
+    @Ignore
+    @ColumnInfo(name = "average-lengths")
     int[] avgLength;
-    @SerializedName("description")
+    @ColumnInfo(name = "description")
     String description;
-    @SerializedName("sessions")
+    @ColumnInfo(name = "program-session-id")
+    String programSessionId;
+    @Ignore
+    @ColumnInfo(name = "sessions")
     List<SessionVO> sessions;
 
-    public ProgramVO() {
-
+    public String getProgramSessionId() {
+        return programSessionId;
     }
 
-    public ProgramVO(String programId) {
-        this.programId = programId;
+    public void setProgramSessionId(String programSessionId) {
+        this.programSessionId = programSessionId;
     }
 
-    public String getProgramId() {
-        return programId;
+    public List<SessionVO> getSessions() {
+        return sessions;
     }
 
-    public void setProgramId(String programId) {
-        this.programId = programId;
+    public void setSessions(List<SessionVO> sessions) {
+        this.sessions = sessions;
+    }
+
+    public String getProgramVoId() {
+        return programVoId;
+    }
+
+    public void setProgramVoId(String programVoId) {
+        this.programVoId = programVoId;
     }
 
     public String getTitle() {
@@ -44,7 +73,7 @@ public class ProgramVO {
     }
 
     public String getImage() {
-        return image+"theultralinx.com/.image/c_limit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTI5MDI0MjY3MjM2MTg2NTkw/materialdesign7.jpg";
+        return image + "theultralinx.com/.image/c_limit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTI5MDI0MjY3MjM2MTg2NTkw/materialdesign7.jpg";
     }
 
     public void setImage(String image) {
@@ -67,11 +96,4 @@ public class ProgramVO {
         this.description = description;
     }
 
-    public List<SessionVO> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<SessionVO> sessions) {
-        this.sessions = sessions;
-    }
 }

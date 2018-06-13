@@ -1,6 +1,8 @@
 package com.example.ptut.padc_simplehabit_one.fragments;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +17,16 @@ import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.adapters.SeriesNewAdapter;
 import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
+import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
 import com.example.ptut.padc_simplehabit_one.datas.views.EmptyLayout;
 import com.example.ptut.padc_simplehabit_one.events.SeriesEvent;
 import com.example.ptut.padc_simplehabit_one.fragments.base.BaseFragment;
 import com.example.ptut.padc_simplehabit_one.models.CurrentProgramModel;
 import com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView;
-import com.example.ptut.padc_simplehabit_one.shared.UtilsHttp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +44,8 @@ public class FragmentSeries extends BaseFragment {
 
     ItemClickListener clickListener;
     EmptyClickListener emptyClickListener;
+    CurrentProgramModel currentProgramModel;
+    List<HomeScreenVO> homeScreenVOS;
 
     public static FragmentSeries newInstance() {
         Bundle args = new Bundle();
@@ -50,11 +58,13 @@ public class FragmentSeries extends BaseFragment {
         View v = inflater.inflate(R.layout.layout_series, container, false);
         ButterKnife.bind(this, v);
 
-        if(UtilsHttp.isNetworkAvailable(getContext())){
-            CurrentProgramModel.getInstance(getContext()).loadCurrentProgramData();
-        }else{
-            Toast.makeText(getContext(),"No Internet Connection",Toast.LENGTH_SHORT).show();
-        }
+//        if(UtilsHttp.isNetworkAvailable(getContext())){
+//            CurrentProgramModel.getInstance(getContext()).loadCurrentProgramData();
+//        }else{
+//            Toast.makeText(getContext(),"No Internet Connection",Toast.LENGTH_SHORT).show();
+//        }
+        homeScreenVOS=new ArrayList<>();
+
 
 
         emptyLayout.bindData(emptyClickListener);
@@ -65,6 +75,19 @@ public class FragmentSeries extends BaseFragment {
         seriesAdapter=new SeriesNewAdapter(getContext(),clickListener);
         seriesRecycler.setAdapter(seriesAdapter);
 
+        currentProgramModel= ViewModelProviders.of(this).get(CurrentProgramModel.class);
+        currentProgramModel.initDatabase(getContext());
+
+
+        currentProgramModel.getCurrentProgram();
+
+        currentProgramModel.loadCurrentData().observe(this, new Observer<CurrentProgramVO>() {
+            @Override
+            public void onChanged(final CurrentProgramVO currentProgramVO) {
+                homeScreenVOS.add(currentProgramVO);
+                seriesAdapter.setNewData(homeScreenVOS);
+            }
+        });
         return v;
     }
 
@@ -80,10 +103,6 @@ public class FragmentSeries extends BaseFragment {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onHomeScreenEvent(SeriesEvent.HomeScreenEvent homeScreenEvent){
-        seriesAdapter.setNewData(homeScreenEvent.getHomeScreenVOS());
-    }
 
     @Override
     public void onAttach(Context context) {

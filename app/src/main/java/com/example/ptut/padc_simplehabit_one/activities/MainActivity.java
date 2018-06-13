@@ -133,10 +133,10 @@ public class MainActivity extends BaseActivity implements ItemClickListener,Empt
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onCategoryItemClick(ProgramVO programVO, ImageView imageView) {
-        Intent intent=ActivityCategoryDetail.getInstance(this,programVO.getProgramId(), Constant.PROGRAM_ID);
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this, imageView, "profile");
-        startActivity(intent, options.toBundle());
+//      Intent intent=ActivityCategoryDetail.getInstance(this,programVO.getProgramId(), Constant.PROGRAM_ID);
+//        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                makeSceneTransitionAnimation(this, imageView, "profile");
+//        startActivity(intent, options.toBundle());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

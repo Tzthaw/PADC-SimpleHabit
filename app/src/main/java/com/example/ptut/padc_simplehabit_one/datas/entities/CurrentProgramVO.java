@@ -1,36 +1,68 @@
 package com.example.ptut.padc_simplehabit_one.datas.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class CurrentProgramVO implements HomeScreenVO{
+@Entity(tableName = "currentProgram", indices = {@Index(value = {"current-session-id"},
+        unique = true)},
+        foreignKeys = @ForeignKey(entity = SessionVO.class,
+                parentColumns = "session-id", childColumns = "current-session-id"))
+public class CurrentProgramVO implements HomeScreenVO {
+    @PrimaryKey
     @SerializedName("program-id")
-    private
+    @ColumnInfo(name = "program-id")
+    @NonNull
     String programId;
-    @SerializedName("title")
-    private
+
+    @ColumnInfo(name = "title")
     String title;
-    @SerializedName("current_period")
-    private
+
+    @ColumnInfo(name = "current_period")
     String currentPeriod;
-    @SerializedName("background")
-    private
+
+    @ColumnInfo(name = "background")
     String Background;
-    @SerializedName("average-lengths")
-    private
+
+    @Ignore
+    @ColumnInfo(name = "average-lengths")
     int[] avgLength;
-    @SerializedName("description")
-    private
+
+    @ColumnInfo(name = "description")
     String description;
-    @SerializedName("sessions")
-    private
-    List<SessionVO> sessions;
 
-    public CurrentProgramVO() {
+    @ColumnInfo(name = "current-session-id")
+    String currentSessionId;
 
+    @Ignore
+    @ColumnInfo(name = "sessions")
+    public List<SessionVO> sessions;
+
+
+    public String getCurrentSessionId() {
+        return currentSessionId;
     }
 
+    public void setCurrentSessionId(String currentSessionId) {
+        this.currentSessionId = currentSessionId;
+    }
+
+    public List<SessionVO> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<SessionVO> sessions) {
+        this.sessions = sessions;
+    }
 
     public String getProgramId() {
         return programId;
@@ -57,7 +89,7 @@ public class CurrentProgramVO implements HomeScreenVO{
     }
 
     public String getBackground() {
-        return Background+"www.oho.com/sites/default/files/styles/large_photo__960w_/public/insights/rocket-night.jpg?itok=i0kFPmO_";
+        return Background + "www.oho.com/sites/default/files/styles/large_photo__960w_/public/insights/rocket-night.jpg?itok=i0kFPmO_";
     }
 
     public void setBackground(String background) {
@@ -80,11 +112,17 @@ public class CurrentProgramVO implements HomeScreenVO{
         this.description = description;
     }
 
-    public List<SessionVO> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<SessionVO> sessions) {
-        this.sessions = sessions;
+    @Override
+    public String toString() {
+        return "CurrentProgramVO{" +
+                "programId='" + programId + '\'' +
+                ", title='" + title + '\'' +
+                ", currentPeriod='" + currentPeriod + '\'' +
+                ", Background='" + Background + '\'' +
+                ", avgLength=" + Arrays.toString(avgLength) +
+                ", description='" + description + '\'' +
+                ", currentSessionId='" + currentSessionId + '\'' +
+                ", sessions=" + sessions +
+                '}';
     }
 }

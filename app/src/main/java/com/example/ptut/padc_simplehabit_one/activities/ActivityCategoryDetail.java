@@ -1,5 +1,6 @@
 package com.example.ptut.padc_simplehabit_one.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ptut.padc_simplehabit_one.R;
-import com.example.ptut.padc_simplehabit_one.activities.base.BaseActivity;
+import com.example.ptut.padc_simplehabit_one.activities.base.BaseLifeActivity;
 import com.example.ptut.padc_simplehabit_one.adapters.CategorySessionAdapter;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
@@ -29,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ActivityCategoryDetail extends BaseActivity {
+public class ActivityCategoryDetail extends BaseLifeActivity {
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
     @BindView(R.id.toolbar)
@@ -49,6 +50,7 @@ public class ActivityCategoryDetail extends BaseActivity {
     private ProgramVO programVO;
     private CurrentProgramVO currentProgramVO;
     private boolean check = true;
+    private CurrentProgramModel currentProgramModel;
 
 
     //static factory method
@@ -64,6 +66,9 @@ public class ActivityCategoryDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_detail);
         ButterKnife.bind(this, this);
+
+        currentProgramModel= ViewModelProviders.of(this).get(CurrentProgramModel.class);
+        currentProgramModel.initDatabase(this);
 
         setSupportActionBar(toolbar);
 
@@ -89,9 +94,15 @@ public class ActivityCategoryDetail extends BaseActivity {
         cateDetailDesc.setText(check ? programVO.getDescription() : currentProgramVO.getDescription());
 
         cateDetails.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        CategorySessionAdapter categoryAdapter = new CategorySessionAdapter(getApplicationContext());
-        categoryAdapter.setNewData(check ? programVO.getSessions() : currentProgramVO.getSessions());
+        final CategorySessionAdapter categoryAdapter = new CategorySessionAdapter(getApplicationContext());
+//        categoryAdapter.setNewData(check ? programVO.getSessions() : currentProgramVO.getSessions());
         cateDetails.setAdapter(categoryAdapter);
+
+        currentProgramModel=ViewModelProviders.of(this).get(CurrentProgramModel.class);
+        currentProgramModel.initDatabase(this);
+
+
+
     }
 
     @Override
@@ -109,13 +120,13 @@ public class ActivityCategoryDetail extends BaseActivity {
 
     public void checkID(String from, String id) {
         check = from.equalsIgnoreCase(Constant.PROGRAM_ID);
-        CurrentProgramModel currentProgramModel = CurrentProgramModel.getInstance(this);
-        if (check) {
-            programVO=currentProgramModel.loadProgramData(id);
 
-        } else {
-            currentProgramVO=currentProgramModel.loadCurrentData();
-        }
+//        if (check) {
+//            programVO=currentProgramModel.loadProgramData(id);
+//
+//        } else {
+//            currentProgramVO=currentProgramModel.loadCurrentData();
+//        }
     }
 
     public void setActionBarTitle(final String text){

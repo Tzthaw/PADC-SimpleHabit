@@ -5,17 +5,20 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ptut.padc_simplehabit_one.datas.entities.CategoriesProgramVO;
-import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
-import com.example.ptut.padc_simplehabit_one.viewholders.AllTopicsItemViewHolder;
-import com.example.ptut.padc_simplehabit_one.datas.entities.TopicVO;
-import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
-import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
-import com.example.ptut.padc_simplehabit_one.viewholders.CategoriesViewHolder;
 import com.example.ptut.padc_simplehabit_one.R;
-import com.example.ptut.padc_simplehabit_one.viewholders.CurrentViewHolder;
 import com.example.ptut.padc_simplehabit_one.adapters.base.BaseRecyclerAdapter;
+import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
+import com.example.ptut.padc_simplehabit_one.datas.entities.CategoriesProgramVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.TopicVO;
+import com.example.ptut.padc_simplehabit_one.viewholders.AllTopicsItemViewHolder;
+import com.example.ptut.padc_simplehabit_one.viewholders.CategoriesViewHolder;
+import com.example.ptut.padc_simplehabit_one.viewholders.CurrentViewHolder;
 import com.example.ptut.padc_simplehabit_one.viewholders.base.BaseViewHolder;
+
+import java.util.List;
 
 public class SeriesNewAdapter extends BaseRecyclerAdapter<BaseViewHolder,HomeScreenVO> {
 
@@ -24,6 +27,7 @@ public class SeriesNewAdapter extends BaseRecyclerAdapter<BaseViewHolder,HomeScr
     private final int ALLTOPIC_VIEW = 4;
 
     ItemClickListener clickListener;
+    List<ProgramVO> programVOS;
 
     public SeriesNewAdapter(Context context,ItemClickListener clickListener) {
         super(context);
@@ -65,4 +69,5 @@ public class SeriesNewAdapter extends BaseRecyclerAdapter<BaseViewHolder,HomeScr
            return MORNING_VIEW;
         
     }
+
 }

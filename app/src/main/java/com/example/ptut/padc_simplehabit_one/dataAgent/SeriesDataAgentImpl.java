@@ -7,7 +7,9 @@ import com.example.ptut.padc_simplehabit_one.api.response.GetTopicsResponse;
 import com.example.ptut.padc_simplehabit_one.events.SeriesEvent;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 import com.example.ptut.padc_simplehabit_one.shared.UtilsHttp;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,12 +42,14 @@ public class SeriesDataAgentImpl implements SeriesDataAgent {
                 .readTimeout(60,TimeUnit.SECONDS)
                 .build();
 
+        Gson gson= new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
+
         HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(UtilsHttp.getSeriesUrl())
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
         theApi=retrofit.create(SimpleHabitService.class);

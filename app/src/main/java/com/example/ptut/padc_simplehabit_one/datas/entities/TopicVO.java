@@ -1,30 +1,34 @@
 package com.example.ptut.padc_simplehabit_one.datas.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
-public class TopicVO implements HomeScreenVO{
+@Entity(tableName = "topics")
+public class TopicVO implements HomeScreenVO {
 
+    @PrimaryKey
     @SerializedName("topic-name")
+    @ColumnInfo(name = "topic-name")
+    @NonNull
     String topicName;
-    @SerializedName("topic-desc")
+    @ColumnInfo(name = "topic-desc")
     String topicDesc;
-    @SerializedName("icon")
+    @ColumnInfo(name = "icon")
     String image;
-    @SerializedName("background")
+    @ColumnInfo(name = "background")
     String backgroundImg;
 
-    public TopicVO(String topicName, String topicDesc, String image, String backgroundImg) {
-        this.topicName = topicName;
-        this.topicDesc = topicDesc;
-        this.image = image;
-        this.backgroundImg = backgroundImg;
-    }
 
+    @NonNull
     public String getTopicName() {
         return topicName;
     }
 
-    public void setTopicName(String topicName) {
+    public void setTopicName(@NonNull String topicName) {
         this.topicName = topicName;
     }
 

@@ -9,7 +9,10 @@ import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.adapters.CategoriesAdapter;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CategoriesProgramVO;
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
+import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
 import com.example.ptut.padc_simplehabit_one.viewholders.base.BaseViewHolder;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -24,11 +27,13 @@ public class CategoriesViewHolder extends BaseViewHolder<CategoriesProgramVO> {
     CategoriesAdapter categoriesAdapter;
     ItemClickListener clickListener;
     CategoriesProgramVO categoriesProgramVO;
+    List<ProgramVO> programVOS;
 
-    public CategoriesViewHolder(View itemView, ItemClickListener clickListener) {
+    public CategoriesViewHolder(View itemView,ItemClickListener clickListener) {
         super(itemView);
         this.clickListener=clickListener;
         categoriesAdapter =new CategoriesAdapter(itemView.getContext(),clickListener);
+
     }
 
     @Override
@@ -41,7 +46,8 @@ public class CategoriesViewHolder extends BaseViewHolder<CategoriesProgramVO> {
     public void bind(CategoriesProgramVO data) {
         categoriesProgramVO=data;
         meditationTitle.setText(data.getTitle());
-        categoriesAdapter.setNewData(data.getPrograms());
+        categoriesAdapter.setNewData(programVOS);
+//        categoriesAdapter.setNewData(data.getPrograms());
         LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         meditationRecycler.setLayoutManager(layoutManager);
         meditationRecycler.setAdapter(categoriesAdapter);

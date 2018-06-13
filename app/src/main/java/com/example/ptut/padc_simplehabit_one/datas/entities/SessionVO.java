@@ -1,24 +1,29 @@
 package com.example.ptut.padc_simplehabit_one.datas.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "sessions")
 public class SessionVO {
 
+    @PrimaryKey
     @SerializedName("session-id")
+    @NonNull
+    @ColumnInfo(name = "session-id")
     String sessionId;
-    @SerializedName("title")
-    String title;
-    @SerializedName("length-in-seconds")
-    int LengthTime;
-    @SerializedName("file-path")
-    String filePath;
 
-    public SessionVO(String sessionId, String title, int lengthTime, String filePath) {
-        this.sessionId = sessionId;
-        this.title = title;
-        LengthTime = lengthTime;
-        this.filePath = filePath;
-    }
+    @ColumnInfo(name = "title")
+    String title;
+
+    @ColumnInfo(name = "length-in-seconds")
+    int LengthTime;
+
+    @ColumnInfo(name = "file-path")
+    String filePath;
 
     public String getSessionId() {
         return sessionId;

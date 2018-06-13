@@ -41,12 +41,20 @@ dependencies {
     //SnackBar
     implementation 'com.github.mrengineer13:snackbar:1.2.0'
     //architectural component
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation "android.arch.lifecycle:extensions:1.0.0"
     annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
 
     //Ko Aung Pyae Phyo's mmTextView
     implementation 'net.aungpyaephyo:mmtextview:1.1'
-
-    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    //architectural component
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
+    //room persistance
+    implementation 'android.arch.persistence.room:runtime:1.1.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
+    annotationProcessor 'org.immutables:value:2.4.4'
+    implementation 'com.android.support:support-annotations:27.1.1'
 
 }

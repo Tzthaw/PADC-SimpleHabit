@@ -50,6 +50,6 @@ public class CurrentViewHolder extends BaseViewHolder<CurrentProgramVO> {
                 .load(data.getBackground())
                 .into(startImg);
         startDesc.setText(data.getDescription());
-        startTime.setText(""+data.getSessions().get(0).getLengthTime());
+        startTime.setText("");
     }
 }

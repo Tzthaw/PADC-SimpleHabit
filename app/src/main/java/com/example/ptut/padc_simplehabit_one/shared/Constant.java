@@ -8,4 +8,5 @@ public class Constant {
     public static final String FROM_VO = "FROM_VO";
     public static final String PROGRAM_ID = "PROGRAM_ID";
     public static final String CURRENT_ID = "CURRENT_ID";
+    public static final String DB_NAME="DB_V000071";
 }
